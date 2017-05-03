@@ -1,15 +1,21 @@
-FROM node:boron 
+FROM alpine:3.4
+
+#Sudo apt-get install 
+RUN apk update && apk add --no-cache \
+    bash \
+    curl \
+    nodejs=6.7.0-r0
 
 # Create app directory 
-RUN mkdir -p /Users/samirgovani/Projects/JS/app 
-WORKDIR /Users/samirgovani/Projects/JS/app
+RUN mkdir -p /app/nodeapi  
+WORKDIR /app/nodeapi
 
 # Install app dependencies 
-COPY package.json /Users/samirgovani/Projects/JS/app
+COPY package.json .
 RUN npm install 
 
 # Bundle app source 
-COPY . /Users/samirgovani/Projects/JS/app
+COPY . .
 
 EXPOSE 8080
 
